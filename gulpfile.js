@@ -8,6 +8,7 @@ var coffee				= require('gulp-coffee');
 var uglify				= require('gulp-uglifyjs');
 var livereload		= require('gulp-livereload');
 var imagemin			= require('gulp-imagemin');
+var lintspaces		= require('gulp-lintspaces');
 var phpcs					=	require('gulp-phpcs');
 var exec					= require('child_process').exec;
 
@@ -44,6 +45,10 @@ gulp.task('watch', function() {
 
 	gulp.watch('./**/*.php').on('change', function(file) {
 		gulp.src(file.path)
+    .pipe(lintspaces({
+	  	indentation: 'tabs'
+	  }))
+    .pipe(lintspaces.reporter())
     .pipe(livereload())
 	  .pipe(phpcs({
 	      bin: 'vendor/bin/phpcs',
@@ -76,6 +81,10 @@ gulp.task('phpcs', function() {
 
 gulp.task('sass', function () {
 	gulp.src('./scss/*.scss')
+    .pipe(lintspaces({
+	  	indentation: 'tabs'
+	  }))
+    .pipe(lintspaces.reporter())
 	  .pipe(sourcemaps.init())
     .pipe(sass({includePaths: sassPaths}))
     .on('error', function (err) {
@@ -100,6 +109,10 @@ gulp.task('sass-dist', function() {
 
 gulp.task('coffee', function() {
   gulp.src('./coffee/*.coffee')
+    .pipe(lintspaces({
+	  	indentation: 'tabs'
+	  }))
+    .pipe(lintspaces.reporter())
 	  .pipe(sourcemaps.init())
     .pipe(coffee())
 	  .pipe(sourcemaps.write())
