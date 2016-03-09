@@ -11,8 +11,8 @@ const $ = plugins();
 const { HOST_URL, COMPATIBILITY, PATHS } = loadConfig();
 
 function loadConfig() {
-  let ymlFile = fs.readFileSync('config.yml', 'utf8');
-  return yaml.load(ymlFile);
+    let ymlFile = fs.readFileSync('config.yml', 'utf8');
+    return yaml.load(ymlFile);
 }
 
 gulp.task('default', gulp.series(server, gulp.parallel(sass, js, phpcs), watch));
