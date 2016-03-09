@@ -26,7 +26,7 @@ function server(done) {
 }
 
 function watch() {
-    gulp.watch('scss/**/*.scss', sass);
+    gulp.watch(PATHS.watch.sass, sass);
 
     gulp.watch(PATHS.js, gulp.series(js, browserSync.reload));
 
@@ -55,7 +55,7 @@ function phpcs() {
 }
 
 function sass() {
-    return gulp.src(PATHS.watch.scss)
+    return gulp.src(PATHS.watch.sass)
         .pipe($.sourcemaps.init())
         .pipe($.sass({includePaths: PATHS.sass}).on('error', $.sass.logError))
         .pipe($.autoprefixer({browsers: COMPATIBILITY}))
@@ -65,7 +65,7 @@ function sass() {
 }
 
 function sassDist() {
-    return gulp.src(PATHS.watch.scss)
+    return gulp.src(PATHS.watch.sass)
         .pipe($.sass({includePaths: PATHS.sass}).on('error', $.sass.logError))
         .pipe($.autoprefixer({browsers: COMPATIBILITY}))
         .pipe($.cleanCss())
