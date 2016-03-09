@@ -1,7 +1,7 @@
 {
   "name": "storm-base-theme",
   "dependencies": {
-    "foundation-sites": "git@github.com:zurb/foundation-sites-6.git#develop",
-    "bourbon": "~4.2.6"
+    "foundation-sites": "6.2.*",
+    "motion-ui": "1.2.*"
   }
 }

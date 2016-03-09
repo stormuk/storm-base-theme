@@ -4,6 +4,6 @@
 *.map
 sitemap.json
 /vendor
-/css
+/assets/dev
+/assets/dist
 /public/components
-/js

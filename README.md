@@ -1,13 +1,13 @@
 # Storm Base Theme 
 
-This is the base theme for all new Storm WordPress builds
+This is the base theme for all new Storm WordPress builds.
 
 ## Requirements
 
 You'll need to have the following items installed before continuing.
 
 	* [Node.js](http://nodejs.org): Use the installer provided on the NodeJS website.
-	* [Gulp](http://gulpjs.com/): Run `npm install gulp-cli`
+	* [Gulp (Version 4)](http://gulpjs.com/): Run `npm install gulpjs/gulp-cli#4.0`
 	* [Bower](http://bower.io): Run `[sudo] npm install -g bower`
 	* [Composer](http://getcomposer.org/doc/00-intro.md#globally-on-osx-via-homebrew-): Follow the instructions provided on the Composer website.
 
