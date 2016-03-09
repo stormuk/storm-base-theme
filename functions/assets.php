@@ -14,7 +14,7 @@ function setup_assets()
     global $wp_scripts;
 
     // *all* javascripts and css files must be included here. Nothing in header.php please.
-    // Any custom JS needs a new $site.coffee file in coffee/ and included via the gulpfile.js
+    // Any custom JS needs a new file in js/ and included via the gulpfile.babel.js
     if (defined('WP_DEBUG') && WP_DEBUG) {
         $sass_file = '/assets/dev/css/app.css';
         $coffee_file = '/assets/dev/js/compiled.js';
