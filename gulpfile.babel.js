@@ -41,7 +41,7 @@ function watch() {
             }))
             .pipe($.phpcs.reporter('log'))
     });
-};
+}
 
 function phpcs() {
     return gulp.src(PATHS.watch.php)
@@ -52,7 +52,7 @@ function phpcs() {
           colors: true
         }))
         .pipe($.phpcs.reporter('log'))
-};
+}
 
 function sass() {
     return gulp.src(PATHS.watch.scss)
@@ -62,7 +62,7 @@ function sass() {
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.css))
         .pipe(browserSync.stream());
-};
+}
 
 function sassDist() {
     return gulp.src(PATHS.watch.scss)
@@ -70,7 +70,7 @@ function sassDist() {
         .pipe($.autoprefixer({browsers: COMPATIBILITY}))
         .pipe($.cleanCss())
         .pipe(gulp.dest(PATHS.assets.dist.css))
-};
+}
 
 function js() {
     return gulp.src(PATHS.js)
@@ -79,7 +79,7 @@ function js() {
         .pipe($.concat('compiled.js'))
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.js))
-};
+}
 
 function jsDist() {
     return gulp.src(PATHS.js)
@@ -87,7 +87,7 @@ function jsDist() {
         .pipe($.concat('compiled.min.js'))
         .pipe($.uglify())
         .pipe(gulp.dest(PATHS.assets.dist.js))
-};
+}
 
 function themeImageMin() {
     return gulp.src('./images/**/*')
