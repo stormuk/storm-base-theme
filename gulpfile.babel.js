@@ -15,7 +15,7 @@ function loadConfig() {
     return yaml.load(ymlFile);
 }
 
-gulp.task('default', gulp.series(server, gulp.parallel(sass, js, phpcs), watch));
+gulp.task('default', gulp.series(server, gulp.parallel(sass, js, codeStandards), watch));
 gulp.task('deploy', gulp.parallel(sassDist, jsDist, themeImageMin, uploadImageMin));
 
 function server(done) {
@@ -25,26 +25,8 @@ function server(done) {
     done();
 }
 
-function watch() {
-    gulp.watch(PATHS.watch.sass, sass);
-
-    gulp.watch(PATHS.js, gulp.series(js, browserSync.reload));
-
-    gulp.watch(PATHS.watch.php, function(file) {
-        gulp.src(file.path)
-            .pipe(browserSync.reload)
-            .pipe($.phpcs({
-              bin: 'vendor/bin/phpcs',
-              standard: 'PSR2',
-              warningSeverity: 0,
-              colors: true
-            }))
-            .pipe($.phpcs.reporter('log'))
-    });
-}
-
-function phpcs() {
-    return gulp.src(PATHS.watch.php)
+function codeStandards() {
+    return gulp.src(PATHS.watch.php, {since: gulp.lastRun(codeStandards)})
         .pipe($.phpcs({
           bin: 'vendor/bin/phpcs',
           standard: 'PSR2',
@@ -99,4 +81,10 @@ function uploadImageMin() {
     return gulp.src('../../uploads/**/*')
         .pipe($.imagemin())
         .pipe(gulp.dest('../../uploads/'));
+}
+
+function watch() {
+    gulp.watch(PATHS.watch.sass, sass);
+    gulp.watch(PATHS.js, gulp.series(js, browserSync.reload));
+    gulp.watch(PATHS.watch.php, codeStandards);
 }
