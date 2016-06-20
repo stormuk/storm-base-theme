@@ -8,7 +8,7 @@ import fs           from 'fs';
 
 const $ = plugins();
 
-const { HOST_URL, COMPATIBILITY, PATHS } = loadConfig();
+const { HOST_URL, HOST_IP, COMPATIBILITY, PATHS } = loadConfig();
 
 function loadConfig() {
     let ymlFile = fs.readFileSync('config.yml', 'utf8');
@@ -16,17 +16,51 @@ function loadConfig() {
 }
 
 gulp.task('default', gulp.series(server, gulp.parallel(sass, js, codeStandards), watch));
-gulp.task('deploy', gulp.parallel(sassDist, jsDist, themeImageMin, uploadImageMin));
+gulp.task('cs', gulp.series(onlyCS, csWatch));
+gulp.task('deploy', gulp.parallel(sass, sassDist, js, jsDist));
+gulp.task('full-deploy', gulp.parallel(sassDist, jsDist, themeImageMin, uploadImageMin));
 
 function server(done) {
     browserSync.init({
-        proxy: HOST_URL
+        proxy: HOST_URL,
+        open: false
     });
     done();
 }
 
 function codeStandards() {
     return gulp.src(PATHS.watch.php, {since: gulp.lastRun(codeStandards)})
+        .pipe(browserSync.stream())
+        .pipe($.lintspaces({
+            newline: true,
+            trailingspaces: true,
+            indentation: 'spaces',
+            ignores: [
+                'js-comments'
+            ]
+        }))
+        .pipe($.lintspaces.reporter())
+        .pipe($.phpcs({
+          bin: 'vendor/bin/phpcs',
+          standard: 'PSR2',
+          warningSeverity: 0,
+          colors: true
+        }))
+        .pipe($.phpcs.reporter('log'))
+}
+
+function onlyCS() {
+    return gulp.src(PATHS.watch.php)
+        .pipe(browserSync.stream())
+        .pipe($.lintspaces({
+            newline: true,
+            trailingspaces: true,
+            indentation: 'spaces',
+            ignores: [
+                'js-comments'
+            ]
+        }))
+        .pipe($.lintspaces.reporter())
         .pipe($.phpcs({
           bin: 'vendor/bin/phpcs',
           standard: 'PSR2',
@@ -43,7 +77,7 @@ function sass() {
         .pipe($.autoprefixer({browsers: COMPATIBILITY}))
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.css))
-        .pipe(browserSync.stream());
+        .pipe(browserSync.stream())
 }
 
 function sassDist() {
@@ -61,6 +95,7 @@ function js() {
         .pipe($.concat('compiled.js'))
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.js))
+        .pipe(browserSync.stream())
 }
 
 function jsDist() {
@@ -83,8 +118,17 @@ function uploadImageMin() {
         .pipe(gulp.dest('../../uploads/'));
 }
 
+function reloadWindows(done) {
+    browserSync.reload()
+    done();
+}
+
 function watch() {
     gulp.watch(PATHS.watch.sass, sass);
-    gulp.watch(PATHS.js, gulp.series(js, browserSync.reload));
-    gulp.watch(PATHS.watch.php, codeStandards);
+    gulp.watch(PATHS.js, js);
+    gulp.watch(PATHS.watch.php, gulp.parallel(codeStandards, reloadWindows));
+}
+
+function csWatch() {
+    gulp.watch(PATHS.watch.php, onlyCS);
 }
