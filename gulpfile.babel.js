@@ -8,7 +8,7 @@ import fs           from 'fs';
 
 const $ = plugins();
 
-const { HOST_URL, HOST_IP, COMPATIBILITY, PATHS } = loadConfig();
+var { HOST_URL, HOST_IP, COMPATIBILITY, PATHS } = loadConfig();
 
 function loadConfig() {
     let ymlFile = fs.readFileSync('config.yml', 'utf8');
@@ -90,9 +90,12 @@ function sassDist() {
 
 function js() {
     return gulp.src(PATHS.js)
+            .on('error', logAndContinueError)
         .pipe($.sourcemaps.init())
         .pipe($.babel())
+            .on('error', logAndContinueError)
         .pipe($.concat('compiled.js'))
+            .on('error', logAndContinueError)
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.js))
         .pipe(browserSync.stream())
@@ -100,8 +103,11 @@ function js() {
 
 function jsDist() {
     return gulp.src(PATHS.js)
+            .on('error', logAndContinueError)
         .pipe($.babel())
+            .on('error', logAndContinueError)
         .pipe($.concat('compiled.min.js'))
+            .on('error', logAndContinueError)
         .pipe($.uglify())
         .pipe(gulp.dest(PATHS.assets.dist.js))
 }
@@ -123,7 +129,13 @@ function reloadWindows(done) {
     done();
 }
 
+function logAndContinueError(e) {
+    console.log('>>> ERROR', e);
+    this.emit('end');
+}
+
 function watch() {
+    gulp.watch('config.yml', gulp.series(function(done) { PATHS = loadConfig().PATHS; done(); }, gulp.parallel(js, sass)));
     gulp.watch(PATHS.watch.sass, sass);
     gulp.watch(PATHS.js, js);
     gulp.watch(PATHS.watch.php, gulp.parallel(codeStandards, reloadWindows));
