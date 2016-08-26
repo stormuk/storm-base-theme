@@ -18,7 +18,7 @@ PATHS:
         php:
             - '**/*.php'
             - '!vendor/**/*.*'
-        sass:   'scss/*.scss'
+        sass:   'scss/**/*.scss'
     js:
         # Javascript files provided by bower (or npm)
         - 'public/components/jquery/dist/jquery.js'
