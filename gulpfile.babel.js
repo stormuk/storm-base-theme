@@ -15,7 +15,7 @@ function loadConfig() {
     return yaml.load(ymlFile);
 }
 
-gulp.task('default', gulp.series(server, gulp.parallel(sass, js, codeStandards), watch));
+gulp.task('default', gulp.series(server, gulp.parallel(sass, js), watch));
 gulp.task('cs', gulp.series(onlyCS, csWatch));
 gulp.task('deploy', gulp.parallel(sass, sassDist, js, jsDist));
 gulp.task('full-deploy', gulp.parallel(sassDist, jsDist, themeImageMin, uploadImageMin));
@@ -26,27 +26,6 @@ function server(done) {
         open: false
     });
     done();
-}
-
-function codeStandards() {
-    return gulp.src(PATHS.watch.php, {since: gulp.lastRun(codeStandards)})
-        .pipe(browserSync.stream())
-        .pipe($.lintspaces({
-            newline: true,
-            trailingspaces: true,
-            indentation: 'spaces',
-            ignores: [
-                'js-comments'
-            ]
-        }))
-        .pipe($.lintspaces.reporter())
-        .pipe($.phpcs({
-          bin: 'vendor/bin/phpcs',
-          standard: 'PSR2',
-          warningSeverity: 0,
-          colors: true
-        }))
-        .pipe($.phpcs.reporter('log'))
 }
 
 function onlyCS() {
@@ -138,7 +117,7 @@ function watch() {
     gulp.watch('config.yml', gulp.series(function(done) { PATHS = loadConfig().PATHS; done(); }, gulp.parallel(js, sass)));
     gulp.watch(PATHS.watch.sass, sass);
     gulp.watch(PATHS.js, js);
-    gulp.watch(PATHS.watch.php, gulp.parallel(codeStandards, reloadWindows));
+    gulp.watch(PATHS.watch.php, gulp.parallel(reloadWindows));
 }
 
 function csWatch() {
