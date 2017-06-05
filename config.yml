@@ -20,14 +20,9 @@ PATHS:
             - '!vendor/**/*.*'
         sass:   'scss/**/*.scss'
     js:
-        # Javascript files provided by bower (or npm)
-        - 'public/components/jquery/dist/jquery.js'
-        - 'public/components/foundation-sites/js/foundation.core.js'
-        - 'public/components/foundation-sites/js/foundation.util.*'
-        # Local (ES6) javascript files build for this project
         - 'js/app.js'
         
     # Paths to Sass libraries
-    sass:
-        - 'public/components/foundation-sites/scss'
-        - 'public/components/motion-ui/src'
+    sass:        
+        - 'node_modules/foundation-sites/scss'
+        - 'node_modules/motion-ui/src'

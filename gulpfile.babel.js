@@ -1,10 +1,13 @@
 'use strict';
 
-import plugins      from 'gulp-load-plugins';
-import browserSync  from 'browser-sync';
-import gulp         from 'gulp';
-import yaml         from 'js-yaml';
-import fs           from 'fs';
+import plugins       from 'gulp-load-plugins';
+import browserSync   from 'browser-sync';
+import gulp          from 'gulp';
+import yaml          from 'js-yaml';
+import fs            from 'fs';
+import webpackStream from 'webpack-stream';
+import webpack2      from 'webpack';
+import named         from 'vinyl-named';
 
 const $ = plugins();
 
@@ -16,7 +19,6 @@ function loadConfig() {
 }
 
 gulp.task('default', gulp.series(server, gulp.parallel(sass, js), watch));
-gulp.task('cs', gulp.series(onlyCS, csWatch));
 gulp.task('deploy', gulp.parallel(sass, sassDist, js, jsDist));
 gulp.task('full-deploy', gulp.parallel(sassDist, jsDist, themeImageMin, uploadImageMin));
 
@@ -26,27 +28,6 @@ function server(done) {
         open: false
     });
     done();
-}
-
-function onlyCS() {
-    return gulp.src(PATHS.watch.php)
-        .pipe(browserSync.stream())
-        .pipe($.lintspaces({
-            newline: true,
-            trailingspaces: true,
-            indentation: 'spaces',
-            ignores: [
-                'js-comments'
-            ]
-        }))
-        .pipe($.lintspaces.reporter())
-        .pipe($.phpcs({
-          bin: 'vendor/bin/phpcs',
-          standard: 'PSR2',
-          warningSeverity: 0,
-          colors: true
-        }))
-        .pipe($.phpcs.reporter('log'))
 }
 
 function sass() {
@@ -67,13 +48,21 @@ function sassDist() {
         .pipe(gulp.dest(PATHS.assets.dist.css))
 }
 
+let webpackConfig = {
+	rules: [{
+		test: /.js$/,
+		use: [{
+			loader: 'babel-loader'
+		}]
+	}]
+}
+
 function js() {
     return gulp.src(PATHS.js)
+	    .pipe(named())
             .on('error', logAndContinueError)
         .pipe($.sourcemaps.init())
-        .pipe($.babel())
-            .on('error', logAndContinueError)
-        .pipe($.concat('compiled.js'))
+	    .pipe(webpackStream({module: webpackConfig}, webpack2))
             .on('error', logAndContinueError)
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.js))
@@ -82,14 +71,15 @@ function js() {
 
 function jsDist() {
     return gulp.src(PATHS.js)
+	    .pipe(named())
             .on('error', logAndContinueError)
-        .pipe($.babel())
-            .on('error', logAndContinueError)
-        .pipe($.concat('compiled.min.js'))
+	    .pipe(webpackStream({module: webpackConfig}, webpack2))
             .on('error', logAndContinueError)
         .pipe($.uglify())
         .pipe(gulp.dest(PATHS.assets.dist.js))
 }
+
+
 
 function themeImageMin() {
     return gulp.src('./images/**/*')
@@ -118,8 +108,4 @@ function watch() {
     gulp.watch(PATHS.watch.sass, sass);
     gulp.watch(PATHS.js, js);
     gulp.watch(PATHS.watch.php, gulp.parallel(reloadWindows));
-}
-
-function csWatch() {
-    gulp.watch(PATHS.watch.php, onlyCS);
 }
