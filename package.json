@@ -39,7 +39,7 @@
   },
   "private": true,
   "dependencies": {
-    "foundation-sites": "^6.4.0-rc2-1",
+    "foundation-sites": "^6.4.2",
     "motion-ui": "^1.2.2"
   }
 }
