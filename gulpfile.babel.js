@@ -6,21 +6,23 @@ import gulp          from 'gulp';
 import yaml          from 'js-yaml';
 import fs            from 'fs';
 import webpackStream from 'webpack-stream';
-import webpack2      from 'webpack';
+import webpack       from 'webpack';
 import named         from 'vinyl-named';
 
 const $ = plugins();
 
 var { HOST_URL, HOST_IP, COMPATIBILITY, PATHS } = loadConfig();
+var assets_use_path = PATHS.assets.dev;
 
 function loadConfig() {
     let ymlFile = fs.readFileSync('config.yml', 'utf8');
     return yaml.load(ymlFile);
 }
 
-gulp.task('default', gulp.series(server, gulp.parallel(sass, js), watch));
-gulp.task('deploy', gulp.parallel(sass, sassDist, js, jsDist));
-gulp.task('full-deploy', gulp.parallel(sassDist, jsDist, themeImageMin, uploadImageMin));
+gulp.task('default', gulp.series(setDev, server, gulp.parallel(sass, js), watch));
+gulp.task('deploy', gulp.parallel(setProd, sassDist, js));
+gulp.task('js', gulp.series(setDev, js));
+gulp.task('images', gulp.series(setDev, themeImageMin));
 
 function server(done) {
     browserSync.init({
@@ -28,6 +30,17 @@ function server(done) {
         open: false
     });
     done();
+}
+
+function setDev(done) {
+	process.env.NODE_ENV = 'development';
+	done();
+}
+
+function setProd(done) {
+	process.env.NODE_ENV = 'production';
+	assets_use_path = PATHS.assets.dist;
+	done();
 }
 
 function sass() {
@@ -48,43 +61,20 @@ function sassDist() {
         .pipe(gulp.dest(PATHS.assets.dist.css))
 }
 
-let webpackConfig = {
-	rules: [{
-		test: /.js$/,
-		use: [{
-			loader: 'babel-loader'
-		}]
-	}]
-}
-
 function js() {
     return gulp.src(PATHS.js)
 	    .pipe(named())
             .on('error', logAndContinueError)
-        .pipe($.sourcemaps.init())
-	    .pipe(webpackStream({module: webpackConfig}, webpack2))
+	    .pipe(webpackStream(require("./webpack.config.js"), webpack))
             .on('error', logAndContinueError)
-        .pipe($.sourcemaps.write('.'))
-        .pipe(gulp.dest(PATHS.assets.dev.js))
+        .pipe(gulp.dest(assets_use_path.js))
         .pipe(browserSync.stream())
 }
 
-function jsDist() {
-    return gulp.src(PATHS.js)
-	    .pipe(named())
-            .on('error', logAndContinueError)
-	    .pipe(webpackStream({module: webpackConfig}, webpack2))
-            .on('error', logAndContinueError)
-        .pipe($.uglify())
-        .pipe(gulp.dest(PATHS.assets.dist.js))
-}
-
-
-
 function themeImageMin() {
-    return gulp.src('./images/**/*')
+    return gulp.src('./img/**/*')
         .pipe($.imagemin())
-        .pipe(gulp.dest('./images/'));
+        .pipe(gulp.dest('./img'));
 }
       
 function uploadImageMin() {
@@ -106,6 +96,6 @@ function logAndContinueError(e) {
 function watch() {
     gulp.watch('config.yml', gulp.series(function(done) { PATHS = loadConfig().PATHS; done(); }, gulp.parallel(js, sass)));
     gulp.watch(PATHS.watch.sass, sass);
-    gulp.watch(PATHS.js, js);
+    gulp.watch(PATHS.watch.js, js);
     gulp.watch(PATHS.watch.php, gulp.parallel(reloadWindows));
 }

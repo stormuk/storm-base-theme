@@ -6,8 +6,8 @@
 
 ?><?php get_header(); ?>
 
-<div class="row">
-    <div class="large-12 small-12 columns">
+<div class="grid-x">
+    <div class="cell">
         <?php the_post();
         the_content(); ?>
     </div>
