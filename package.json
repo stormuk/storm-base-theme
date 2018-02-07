@@ -1,6 +1,6 @@
 {
   "name": "storm-base-theme",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "The Storm Base Theme for WordPress projects.",
   "main": "gulpfile.js",
   "scripts": {
@@ -40,7 +40,7 @@
   "private": true,
   "dependencies": {
     "foundation-sites": "^6.4.3",
-    "jquery": "^2.2.4"
+    "jquery": "^3"
   },
   "false": {}
 }
