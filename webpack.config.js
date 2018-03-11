@@ -22,23 +22,19 @@ const config = {
 		alias: {
 		}
 	},
-	devtool: 'inline-source-map',
+	devtool: 'cheap-module-eval-source-map',
 	stats: {
 		modules: true,
 		children: true
 	},
+	mode: 'development',
 	plugins: []
 };
 
 if (process.env.NODE_ENV === 'production') {
-	config.plugins.push(
-		new webpack.optimize.UglifyJsPlugin({
-			minimize: true,					
-			compress: { warnings: false },
-			output: { comments: false },
-		})
-	)
+	config.optimization = { minimize: true },
 	config.devtool = false;
+	config.mode = 'production';
 };
 
 module.exports = config;

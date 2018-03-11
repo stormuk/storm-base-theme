@@ -1,6 +1,6 @@
 {
   "name": "storm-base-theme",
-  "version": "5.1.1",
+  "version": "5.2.0",
   "description": "The Storm Base Theme for WordPress projects.",
   "main": "gulpfile.js",
   "scripts": {
@@ -16,17 +16,17 @@
     "browser-sync": "^2.18.13",
     "expose-loader": "^0.7.3",
     "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-autoprefixer": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.0",
     "gulp-clean-css": "^3.7.0",
-    "gulp-imagemin": "^3.0.1",
+    "gulp-imagemin": "^4.1.0",
     "gulp-load-plugins": "^1.1.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "node-sass": "^4.3.0",
     "vinyl-named": "^1.1.0",
     "webpack": "^3.6.0",
-    "webpack-stream": "^4.0.0"
+    "webpack-stream": "^4.1.1"
   },
   "repository": {
     "type": "git",
