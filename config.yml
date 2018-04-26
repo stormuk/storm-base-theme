@@ -19,10 +19,11 @@ PATHS:
             - '**/*.php'
             - '!vendor/**/*.*'
         sass:   'scss/**/*.scss'
+        js:   'js/**/*.js'
     js:
         - 'js/app.js'
-        
+
     # Paths to Sass libraries
-    sass:        
+    sass:
         - 'node_modules/foundation-sites/scss'
         - 'node_modules/motion-ui/src'
