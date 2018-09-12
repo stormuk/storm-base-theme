@@ -5,8 +5,8 @@ window.$ = $;
 
 import './lib/foundation-explicit-pieces';
 
-$(document).ready(function() {
-	
+$(document).ready(function () {
+
 	$(document).foundation();
-	
+
 });

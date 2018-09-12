@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Globally Included Footer
  * @package storm-base-theme

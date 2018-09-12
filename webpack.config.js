@@ -7,20 +7,19 @@ const config = {
 			use: [{
 				loader: 'babel-loader'
 			}]
-		},{
+		}, {
 			test: require.resolve('jquery'),
 			use: [{
 				loader: 'expose-loader',
 				options: 'jQuery'
-			},{
+			}, {
 				loader: 'expose-loader',
 				options: '$'
 			}]
 		}],
 	},
 	resolve: {
-		alias: {
-		}
+		alias: {}
 	},
 	devtool: 'cheap-module-eval-source-map',
 	stats: {
@@ -32,8 +31,10 @@ const config = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-	config.optimization = { minimize: true },
-	config.devtool = false;
+	config.optimization = {
+			minimize: true
+		},
+		config.devtool = false;
 	config.mode = 'production';
 };
 

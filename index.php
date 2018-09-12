@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default (Fallback) Template
  * @package storm-base-theme

@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Post Types and Taxonomies Definitions
  * @package storm-base-theme
  */
 
 add_theme_support('post-thumbnails');
-add_theme_support('html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ));
+add_theme_support('html5', array('comment-list', 'comment-form', 'search-form', 'gallery', 'caption'));
 
 
 add_action('init', 'register_post_types_menus_and_taxonomies');
@@ -154,5 +155,5 @@ function register_post_types_menus_and_taxonomies()
             'footer_copyright_links' => 'Footer Copyright Links'
         )
     );
-    */
+     */
 }

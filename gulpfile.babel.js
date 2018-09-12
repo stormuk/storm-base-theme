@@ -1,17 +1,22 @@
 'use strict';
 
-import plugins       from 'gulp-load-plugins';
-import browserSync   from 'browser-sync';
-import gulp          from 'gulp';
-import yaml          from 'js-yaml';
-import fs            from 'fs';
+import plugins from 'gulp-load-plugins';
+import browserSync from 'browser-sync';
+import gulp from 'gulp';
+import yaml from 'js-yaml';
+import fs from 'fs';
 import webpackStream from 'webpack-stream';
-import webpack       from 'webpack';
-import named         from 'vinyl-named';
+import webpack from 'webpack';
+import named from 'vinyl-named';
 
 const $ = plugins();
 
-var { HOST_URL, HOST_IP, COMPATIBILITY, PATHS } = loadConfig();
+var {
+    HOST_URL,
+    HOST_IP,
+    COMPATIBILITY,
+    PATHS
+} = loadConfig();
 var assets_use_path = PATHS.assets.dev;
 
 function loadConfig() {
@@ -33,21 +38,25 @@ function server(done) {
 }
 
 function setDev(done) {
-	process.env.NODE_ENV = 'development';
-	done();
+    process.env.NODE_ENV = 'development';
+    done();
 }
 
 function setProd(done) {
-	process.env.NODE_ENV = 'production';
-	assets_use_path = PATHS.assets.dist;
-	done();
+    process.env.NODE_ENV = 'production';
+    assets_use_path = PATHS.assets.dist;
+    done();
 }
 
 function sass() {
     return gulp.src(PATHS.watch.sass)
         .pipe($.sourcemaps.init())
-        .pipe($.sass({includePaths: PATHS.sass}).on('error', $.sass.logError))
-        .pipe($.autoprefixer({browsers: COMPATIBILITY}))
+        .pipe($.sass({
+            includePaths: PATHS.sass
+        }).on('error', $.sass.logError))
+        .pipe($.autoprefixer({
+            browsers: COMPATIBILITY
+        }))
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.css))
         .pipe(browserSync.stream())
@@ -55,18 +64,22 @@ function sass() {
 
 function sassDist() {
     return gulp.src(PATHS.watch.sass)
-        .pipe($.sass({includePaths: PATHS.sass}).on('error', $.sass.logError))
-        .pipe($.autoprefixer({browsers: COMPATIBILITY}))
+        .pipe($.sass({
+            includePaths: PATHS.sass
+        }).on('error', $.sass.logError))
+        .pipe($.autoprefixer({
+            browsers: COMPATIBILITY
+        }))
         .pipe($.cleanCss())
         .pipe(gulp.dest(PATHS.assets.dist.css))
 }
 
 function js() {
     return gulp.src(PATHS.js)
-	    .pipe(named())
-            .on('error', logAndContinueError)
-	    .pipe(webpackStream(require("./webpack.config.js"), webpack))
-            .on('error', logAndContinueError)
+        .pipe(named())
+        .on('error', logAndContinueError)
+        .pipe(webpackStream(require("./webpack.config.js"), webpack))
+        .on('error', logAndContinueError)
         .pipe(gulp.dest(assets_use_path.js))
         .pipe(browserSync.stream())
 }
@@ -76,7 +89,7 @@ function themeImageMin() {
         .pipe($.imagemin())
         .pipe(gulp.dest('./img'));
 }
-      
+
 function uploadImageMin() {
     return gulp.src('../../uploads/**/*')
         .pipe($.imagemin())
@@ -94,7 +107,10 @@ function logAndContinueError(e) {
 }
 
 function watch() {
-    gulp.watch('config.yml', gulp.series(function(done) { PATHS = loadConfig().PATHS; done(); }, gulp.parallel(js, sass)));
+    gulp.watch('config.yml', gulp.series(function (done) {
+        PATHS = loadConfig().PATHS;
+        done();
+    }, gulp.parallel(js, sass)));
     gulp.watch(PATHS.watch.sass, sass);
     gulp.watch(PATHS.watch.js, js);
     gulp.watch(PATHS.watch.php, gulp.parallel(reloadWindows));
