@@ -1,6 +1,6 @@
 {
   "name": "storm-base-theme",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "description": "The Storm Base Theme for WordPress projects.",
   "main": "gulpfile.js",
   "scripts": {
@@ -10,23 +10,27 @@
   "author": "Liam Gladdy <liam@stormconsultancy.co.uk>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.1",
-    "babel-preset-env": "^1.6.0",
-    "browser-sync": "^2.18.13",
     "expose-loader": "^0.7.3",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-babel": "^7.0.0",
-    "gulp-clean-css": "^3.7.0",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "autoprefixer": "^9.1.5",
+    "babel-loader": "^8.0.4",
+    "browser-sync": "^2.10.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^3.3.1",
+    "gulp-if": "^2.0.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-load-plugins": "^1.1.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.1",
-    "node-sass": "^4.3.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "js-yaml": "^3.4.6",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.1.1",
-    "webpack-stream": "^4.0.2"
+    "webpack": "^4.20.2",
+    "webpack-stream": "^5.1.1"
   },
   "repository": {
     "type": "git",
@@ -34,13 +38,13 @@
   },
   "babel": {
     "presets": [
-      "env"
+      "@babel/preset-env"
     ]
   },
   "private": true,
   "dependencies": {
-    "foundation-sites": "^6.4.3",
-    "jquery": "^3"
-  },
-  "false": {}
+    "foundation-sites": "^6.5",
+    "jquery": "^3",
+    "what-input": "^5.1.2"
+  }
 }
