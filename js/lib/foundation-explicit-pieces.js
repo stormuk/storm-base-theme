@@ -1,43 +1,16 @@
 import $ from 'jquery';
-
-import {
-  Foundation
-} from 'foundation-sites/js/foundation.core';
-import {
-  rtl,
-  GetYoDigits,
-  transitionend
-} from 'foundation-sites/js/foundation.util.core';
-import {
-  Box
-} from 'foundation-sites/js/foundation.util.box'
-import {
-  onImagesLoaded
-} from 'foundation-sites/js/foundation.util.imageLoader';
-import {
-  Keyboard
-} from 'foundation-sites/js/foundation.util.keyboard';
-import {
-  MediaQuery
-} from 'foundation-sites/js/foundation.util.mediaQuery';
-import {
-  Motion,
-  Move
-} from 'foundation-sites/js/foundation.util.motion';
-import {
-  Nest
-} from 'foundation-sites/js/foundation.util.nest';
-import {
-  Timer
-} from 'foundation-sites/js/foundation.util.timer';
-import {
-  Touch
-} from 'foundation-sites/js/foundation.util.touch';
-import {
-  Triggers
-} from 'foundation-sites/js/foundation.util.triggers';
-
-/*import { Abide } from 'foundation-sites/js/foundation.abide';
+import { Foundation } from 'foundation-sites/js/foundation.core';
+import { rtl, GetYoDigits, transitionend } from 'foundation-sites/js/foundation.core.utils';
+import { Box } from 'foundation-sites/js/foundation.util.box'
+import { onImagesLoaded } from 'foundation-sites/js/foundation.util.imageLoader';
+import { Keyboard } from 'foundation-sites/js/foundation.util.keyboard';
+import { MediaQuery } from 'foundation-sites/js/foundation.util.mediaQuery';
+import { Motion, Move } from 'foundation-sites/js/foundation.util.motion';
+import { Nest } from 'foundation-sites/js/foundation.util.nest';
+import { Timer } from 'foundation-sites/js/foundation.util.timer';
+import { Touch } from 'foundation-sites/js/foundation.util.touch';
+import { Triggers } from 'foundation-sites/js/foundation.util.triggers';
+import { Abide } from 'foundation-sites/js/foundation.abide';
 import { Accordion } from 'foundation-sites/js/foundation.accordion';
 import { AccordionMenu } from 'foundation-sites/js/foundation.accordionMenu';
 import { Drilldown } from 'foundation-sites/js/foundation.drilldown';
@@ -57,7 +30,7 @@ import { Sticky } from 'foundation-sites/js/foundation.sticky';
 import { Tabs } from 'foundation-sites/js/foundation.tabs';
 import { Toggler } from 'foundation-sites/js/foundation.toggler';
 import { Tooltip } from 'foundation-sites/js/foundation.tooltip';
-import { ResponsiveAccordionTabs } from 'foundation-sites/js/foundation.responsiveAccordionTabs';*/
+import { ResponsiveAccordionTabs } from 'foundation-sites/js/foundation.responsiveAccordionTabs';
 
 
 Foundation.addToJquery($);
@@ -85,26 +58,46 @@ Touch.init($);
 
 Triggers.init($, Foundation);
 
-/*Foundation.plugin(Abide, 'Abide');
-Foundation.plugin(Accordion, 'Accordion');
-Foundation.plugin(AccordionMenu, 'AccordionMenu');
-Foundation.plugin(Drilldown, 'Drilldown');
-Foundation.plugin(Dropdown, 'Dropdown');
-Foundation.plugin(DropdownMenu, 'DropdownMenu');
-Foundation.plugin(Equalizer, 'Equalizer');
-Foundation.plugin(Interchange, 'Interchange');
-Foundation.plugin(Magellan, 'Magellan');
-Foundation.plugin(OffCanvas, 'OffCanvas');
-Foundation.plugin(Orbit, 'Orbit');
-Foundation.plugin(ResponsiveMenu, 'ResponsiveMenu');
-Foundation.plugin(ResponsiveToggle, 'ResponsiveToggle');
-Foundation.plugin(Reveal, 'Reveal');
-Foundation.plugin(Slider, 'Slider');
-Foundation.plugin(SmoothScroll, 'SmoothScroll');
-Foundation.plugin(Sticky, 'Sticky');
-Foundation.plugin(Tabs, 'Tabs');
-Foundation.plugin(Toggler, 'Toggler');
-Foundation.plugin(Tooltip, 'Tooltip');
-Foundation.plugin(ResponsiveAccordionTabs, 'ResponsiveAccordionTabs');*/
+Foundation.plugin(Abide, 'Abide');
 
-module.exports = Foundation;
+Foundation.plugin(Accordion, 'Accordion');
+
+Foundation.plugin(AccordionMenu, 'AccordionMenu');
+
+Foundation.plugin(Drilldown, 'Drilldown');
+
+Foundation.plugin(Dropdown, 'Dropdown');
+
+Foundation.plugin(DropdownMenu, 'DropdownMenu');
+
+Foundation.plugin(Equalizer, 'Equalizer');
+
+Foundation.plugin(Interchange, 'Interchange');
+
+Foundation.plugin(Magellan, 'Magellan');
+
+Foundation.plugin(OffCanvas, 'OffCanvas');
+
+Foundation.plugin(Orbit, 'Orbit');
+
+Foundation.plugin(ResponsiveMenu, 'ResponsiveMenu');
+
+Foundation.plugin(ResponsiveToggle, 'ResponsiveToggle');
+
+Foundation.plugin(Reveal, 'Reveal');
+
+Foundation.plugin(Slider, 'Slider');
+
+Foundation.plugin(SmoothScroll, 'SmoothScroll');
+
+Foundation.plugin(Sticky, 'Sticky');
+
+Foundation.plugin(Tabs, 'Tabs');
+
+Foundation.plugin(Toggler, 'Toggler');
+
+Foundation.plugin(Tooltip, 'Tooltip');
+
+Foundation.plugin(ResponsiveAccordionTabs, 'ResponsiveAccordionTabs');
+
+export {Foundation};
