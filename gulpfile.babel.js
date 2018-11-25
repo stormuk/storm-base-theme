@@ -8,12 +8,12 @@ import fs from 'fs';
 import webpackStream from 'webpack-stream';
 import webpack from 'webpack';
 import named from 'vinyl-named';
+import autoprefixer from 'autoprefixer';
 
 const $ = plugins();
 
 var {
     HOST_URL,
-    HOST_IP,
     COMPATIBILITY,
     PATHS
 } = loadConfig();
@@ -49,27 +49,35 @@ function setProd(done) {
 }
 
 function sass() {
+
+    const postCssPlugins = [autoprefixer({
+        browsers: COMPATIBILITY
+    })].filter(Boolean);
+
     return gulp.src(PATHS.watch.sass)
         .pipe($.sourcemaps.init())
         .pipe($.sass({
             includePaths: PATHS.sass
         }).on('error', $.sass.logError))
-        .pipe($.autoprefixer({
-            browsers: COMPATIBILITY
-        }))
+        .pipe($.postcss(postCssPlugins))
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(PATHS.assets.dev.css))
-        .pipe(browserSync.stream())
+        .pipe(browserSync.reload({
+            stream: true
+        }))
 }
 
 function sassDist() {
+
+    const postCssPlugins = [autoprefixer({
+        browsers: COMPATIBILITY
+    })].filter(Boolean);
+
     return gulp.src(PATHS.watch.sass)
         .pipe($.sass({
             includePaths: PATHS.sass
         }).on('error', $.sass.logError))
-        .pipe($.autoprefixer({
-            browsers: COMPATIBILITY
-        }))
+        .pipe($.postcss(postCssPlugins))
         .pipe($.cleanCss())
         .pipe(gulp.dest(PATHS.assets.dist.css))
 }
@@ -81,7 +89,9 @@ function js() {
         .pipe(webpackStream(require("./webpack.config.js"), webpack))
         .on('error', logAndContinueError)
         .pipe(gulp.dest(assets_use_path.js))
-        .pipe(browserSync.stream())
+        .pipe(browserSync.reload({
+            stream: true
+        }))
 }
 
 function themeImageMin() {
