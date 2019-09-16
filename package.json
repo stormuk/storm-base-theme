@@ -19,10 +19,10 @@
     "browser-sync": "^2.10.0",
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
-    "gulp-clean-css": "^3.3.1",
-    "gulp-if": "^2.0.0",
-    "gulp-imagemin": "^4.1.0",
-    "gulp-load-plugins": "^1.1.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^6.1.0",
+    "gulp-load-plugins": "^2.0.1",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
@@ -41,6 +41,7 @@
       "@babel/preset-env"
     ]
   },
+  "browserslist": "last 2 versions",
   "private": true,
   "dependencies": {
     "foundation-sites": "^6.5",
