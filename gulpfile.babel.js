@@ -50,9 +50,7 @@ function setProd(done) {
 
 function sass() {
 
-    const postCssPlugins = [autoprefixer({
-        browsers: COMPATIBILITY
-    })].filter(Boolean);
+    const postCssPlugins = [autoprefixer()].filter(Boolean);
 
     return gulp.src(PATHS.watch.sass)
         .pipe($.sourcemaps.init())
