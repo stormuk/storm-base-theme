@@ -1,6 +1,6 @@
 {
   "name": "storm-base-theme",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "The Storm Base Theme for WordPress projects.",
   "main": "gulpfile.js",
   "scripts": {
