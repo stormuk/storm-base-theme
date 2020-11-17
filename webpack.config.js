@@ -11,17 +11,16 @@ const config = {
 			test: require.resolve('jquery'),
 			use: [{
 				loader: 'expose-loader',
-				options: 'jQuery'
-			}, {
-				loader: 'expose-loader',
-				options: '$'
+				options: {
+					exposes: ['jQuery', '$']
+				}
 			}]
 		}],
 	},
 	resolve: {
 		alias: {}
 	},
-	devtool: 'cheap-module-eval-source-map',
+	devtool: 'eval-cheap-module-source-map',
 	stats: {
 		modules: true,
 		children: true
