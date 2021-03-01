@@ -1,52 +1,52 @@
 {
   "name": "storm-base-theme",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "The Storm Base Theme for WordPress projects.",
   "main": "gulpfile.js",
   "scripts": {
-      "start": "gulp",
-      "build": "gulp deploy"
+    "start": "gulp",
+    "build": "gulp deploy"
   },
   "author": "Liam Gladdy <liam@stormconsultancy.co.uk>",
   "license": "Apache-2.0",
   "devDependencies": {
-      "expose-loader": "^1.0.1",
-      "@babel/core": "^7.1.2",
-      "@babel/preset-env": "^7.1.0",
-      "@babel/register": "^7.0.0",
-      "autoprefixer": "^10.0.1",
-      "babel-loader": "^8.0.4",
-      "browser-sync": "^2.10.0",
-      "gulp": "^4.0.0",
-      "postcss": "^8.1.4",
-      "gulp-babel": "^8.0.0",
-      "gulp-clean-css": "^4.2.0",
-      "gulp-if": "^3.0.0",
-      "gulp-imagemin": "^7.1.0",
-      "gulp-load-plugins": "^2.0.1",
-      "gulp-postcss": "^9.0.0",
-      "gulp-sass": "^4.0.1",
-      "gulp-sourcemaps": "^2.6.4",
-      "gulp-uglify": "^3.0.1",
-      "js-yaml": "^3.4.6",
-      "vinyl-named": "^1.1.0",
-      "webpack": "^5.4.0",
-      "webpack-stream": "^6.1.0"
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "autoprefixer": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "browser-sync": "^2.10.0",
+    "expose-loader": "^2",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-load-plugins": "^2.0.1",
+    "gulp-postcss": "^9.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^3",
+    "gulp-uglify": "^3.0.1",
+    "js-yaml": "^4",
+    "postcss": "^8.1.4",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^5.4.0",
+    "webpack-stream": "^6.1.0"
   },
   "repository": {
-      "type": "git",
-      "url": "https://storm.codebasehq.com/projects/wordpress/repositories/storm-base-theme"
+    "type": "git",
+    "url": "https://github.com/stormuk/storm-base-theme"
   },
   "babel": {
-      "presets": [
-          "@babel/preset-env"
-      ]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "browserslist": "last 2 versions",
   "private": true,
   "dependencies": {
-      "foundation-sites": "^6.5",
-      "jquery": "^3",
-      "what-input": "^5.1.2"
+    "foundation-sites": "^6.5",
+    "jquery": "^3",
+    "what-input": "^5.1.2"
   }
 }
