@@ -1,6 +1,8 @@
 # Storm Base Theme 
 
-This is the base theme for all new Storm WordPress builds.
+> :warning: This theme is now deprecated. In WordPress 5.8 Full Site Editing is due to arrive, and this will fundamentally change the way themes are built. As part of this, we're moving to a more modern theme structure based about [Roots' Sage 10](https://github.com/roots/sage).
+
+This was the base theme for all new Storm WordPress builds.
 
 ## Requirements
 
